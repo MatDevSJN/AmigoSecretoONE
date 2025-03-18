@@ -1,15 +1,19 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 function sortearAmigo() {
-    let resultado = amigos.map(amigo => ${amigo} → ${amigos[Math.floor(Math.random() * amigos.length)]});
-    mostrarResultado(resultado);
-}
+    if (amigos.length < 2) {
+        alert("Agrega al menos dos amigos para hacer el sorteo.");
+        return;
+    }
 
-function mostrarResultado(resultado) {
-    const resultadoLista = document.getElementById("resultado");
-    resultadoLista.innerHTML = "";
-    resultado.forEach(pair => {
-        const li = document.createElement("li");
-        li.textContent = pair;
-        resultadoLista.appendChild(li);
+    let amigosDisponibles = [...amigos];
+    let resultado = [];
+
+    amigos.forEach(amigo => {
+        let posibles = amigosDisponibles.filter(a => a !== amigo);
+        const elegido = posibles[Math.floor(Math.random() * posibles.length)];
+        resultado.push(${amigo} → ${elegido});
+        amigosDisponibles = amigosDisponibles.filter(a => a !== elegido);
     });
+
+    mostrarResultado(resultado);
 }
